@@ -1,12 +1,11 @@
 package com.overc_i3.jerseydemo;
 
-import com.overc_i3.model.ReqJson;
+import com.overc_i3.model.RequestJson;
+import com.overc_i3.model.ResponseJson;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Path("/")
@@ -23,21 +22,13 @@ public class TestApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)//注解指定解压方式接收数据类型
     @Produces(MediaType.APPLICATION_JSON)//注解指定压缩方式返回数据类型
-    @Path("/postJson2")
-    public Response postJson2(ReqJson msg) {
-        ReqJson reqJson = new ReqJson();
-        reqJson.setId(msg.getId());
-        List<ReqJson.ListBean> listBeanList = new ArrayList<>();
-        for (int i = 0; i < msg.getList().size(); i++) {
-            ReqJson.ListBean listBean = new ReqJson.ListBean();
-            listBean.setMaxname(msg.getList().get(i).getMaxname());
-            listBeanList.add(listBean);
-        }
-        reqJson.setList(listBeanList);
-
-        return Response.status(200).entity(reqJson).build();
+    @Path("/postJersey")
+    public  Response postJersey(RequestJson requestJson) {
+        ResponseJson responseJson = new ResponseJson();
+        responseJson.setResult(0);
+        responseJson.setData("hello" + requestJson.getName());
+        return Response.status(200).entity(responseJson).build();
     }
-
 
     @GET
     @Consumes(MediaType.TEXT_PLAIN)//注解指定解压方式接收数据类型
